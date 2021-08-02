@@ -2,6 +2,8 @@ const Bucket = require("@spica-devkit/bucket");
 
 const API_KEY = process.env.API_KEY;
 
+// FOLLOW THE INSTRUCTIONS WHICH STARTS WITH --CONFIGURATION
+
 /*
   --CONFIGURATION
   1) CREATE TRIGGER WITH:
@@ -12,17 +14,17 @@ const API_KEY = process.env.API_KEY;
 */
 
 /*
-  --CONFIGURATION
-  2) CREATE FUNCTION:
-        functionName: slugBucketName(preferred)
-        copy example function to create one
-*/
+    --CONFIGURATION
+    2) CREATE FUNCTION:
+          functionName: slugBucketName(preferred)
+          copy example function to create one
+  */
 
 export async function slugExample(trigger_data) {
   /*
-      --CONFIGURATION
-      3) ASSIGN NAME OF THE FIELD THAT SLUG WILL BE CREATED FROM
-  */
+        --CONFIGURATION
+        3) ASSIGN NAME OF THE FIELD THAT SLUG WILL BE CREATED FROM
+    */
   let field_name = "title";
 
   /*

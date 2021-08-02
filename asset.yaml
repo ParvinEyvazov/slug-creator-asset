@@ -36,6 +36,9 @@ kind: Trigger
 metadata:
   name: slugExample
 spec:
+  batch:
+    deadline: 19
+    limit: 9007199254740991
   name: slugExample
   func: slug-creator
   type: http
