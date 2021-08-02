@@ -1,38 +1,42 @@
 const Bucket = require("@spica-devkit/bucket");
 
-/*
-// INSERT
-{
-  kind: 'insert',
-  bucket: '6102cc1afeda1d002d66e670',
-  documentKey: '6103ef75feda1d002d66e6a0',
-  current: { title: 'book', _id: '6103ef75feda1d002d66e6a0' }
-}
-
-// UPDATE
-{
-  kind: 'update',
-  bucket: '6102cc1afeda1d002d66e670',
-  documentKey: '6103f005feda1d002d66e6a9',
-  previous: { _id: '6103f005feda1d002d66e6a9', title: 'book' },
-  current: { title: 'booka', _id: '6103f005feda1d002d66e6a9' }
-}
-
-// DELETE
-{
-  kind: 'delete',
-  bucket: '6102cc1afeda1d002d66e670',
-  documentKey: '6103ef75feda1d002d66e6a0',
-  previous: { _id: '6103ef75feda1d002d66e6a0', title: 'book' }
-}
-*/
-
 const API_KEY = process.env.API_KEY;
 
-export async function slugCreator(trigger_data) {
+/*
+  --CONFIGURATION
+  1) CREATE TRIGGER WITH:
+        handler: slugBucketName(preferred)
+        type: Bucket
+        Bucket: "SELECT WANTED BUCKET"
+        Operation type: ALL
+*/
+
+/*
+  --CONFIGURATION
+  2) CREATE FUNCTION:
+        functionName: slugBucketName(preferred)
+        copy example function to create one
+*/
+
+export async function slugExample(trigger_data) {
+  /*
+      --CONFIGURATION
+      3) ASSIGN NAME OF THE FIELD THAT SLUG WILL BE CREATED FROM
+  */
   let field_name = "title";
+
+  /*
+      --CONFIGURATION
+      4) ASSIGN NAME OF THE SLUG FIELS
+  */
   let slug_field_name = "slug";
 
+  await slugCreator(trigger_data, field_name, slug_field_name);
+
+  return true;
+}
+
+async function slugCreator(trigger_data, field_name, slug_field_name) {
   // stop- if data deleted
   if (trigger_data.kind == "delete") {
     return true;

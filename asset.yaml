@@ -1,0 +1,44 @@
+# API KEY
+apiVersion: passport/v1
+kind: ApiKey
+metadata:
+  name: slug-creator-apikey
+spec:
+  name: Secret Api Key For Slug Creator
+  policies:
+    - BucketFullAccess
+---
+# FUNCTION SLUG CREATOR
+apiVersion: function/v1
+kind: Function
+metadata:
+  name: slug-creator
+spec:
+  title: Slugger
+  description: "Creating slug for urls from titles"
+  timeout: 20
+  code: ./triggers/slugger.js
+  runtime:
+    name: Node
+    language: Javascript
+  environment:
+    - name: API_KEY
+      valueFrom:
+        resourceFieldRef:
+          apiKeyName: slug-creator-apikey
+  dependency:
+    - name: "@spica-devkit/bucket"
+      version: latest
+---
+# TRIGGER - slug creator - http version
+apiVersion: function/v1
+kind: Trigger
+metadata:
+  name: slugExample
+spec:
+  name: slugExample
+  func: slug-creator
+  type: http
+  httpOptions:
+    method: Get
+    path: /convert-it-to-trigger
